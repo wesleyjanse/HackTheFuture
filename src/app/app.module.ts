@@ -9,23 +9,21 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormSharedModule } from './core/form.module';
 import { MaterialModule } from './core/material.module';
 import { Routes, RouterModule } from '@angular/router';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
-const appRoutes: Routes = [
-  { path: '', component: AppComponent },
-  ];
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AnomalyComponent,
-    NavbarComponent
+    NavbarComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
     FormSharedModule,
-    RouterModule.forRoot(appRoutes, { enableTracing: true })
   ],
   exports: [
     MaterialModule,
