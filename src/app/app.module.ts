@@ -1,18 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-<<<<<<< HEAD
 import { HomeComponent } from './home/home.component';
-import { AnomalyComponent } from './anomaly/anomaly.component';
-import { NavbarComponent } from './navbar/navbar.component';
-=======
-import { MaterialModule } from './core/material.module';
+import { AnomalyComponent } from './components/anomaly/anomaly.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { FormSharedModule } from './core/form.module';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
->>>>>>> bootstrap  & material
-
+import { MaterialModule } from './core/material.module';
+import { Routes, RouterModule } from '@angular/router';
 
 const appRoutes: Routes = [
   { path: '', component: AppComponent },
@@ -20,13 +16,9 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-<<<<<<< HEAD
     HomeComponent,
     AnomalyComponent,
     NavbarComponent
-=======
-    HomeComponent
->>>>>>> bootstrap  & material
   ],
   imports: [
     BrowserModule,
