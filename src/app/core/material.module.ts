@@ -4,7 +4,9 @@ import { MatToolbarModule, MatIconModule, MatSidenavModule,
          MatListModule, MatButtonModule, MatCardModule, MatGridListModule, 
          MatBadgeModule, MatProgressSpinnerModule, MatExpansionModule,
          MatSlideToggleModule, MatTooltipModule, MatStepperModule, MatDialogModule,
-         MatAutocompleteModule, MatChipsModule, MatSnackBarModule, MatTabsModule } from  '@angular/material';
+         MatAutocompleteModule, MatChipsModule, MatSnackBarModule, MatTabsModule, MatTableModule
+          } from  '@angular/material';
+          import {MatSortModule} from '@angular/material/sort';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { MatToolbarModule, MatIconModule, MatSidenavModule,
     MatAutocompleteModule,
     MatChipsModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
+    MatSortModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -48,7 +52,9 @@ import { MatToolbarModule, MatIconModule, MatSidenavModule,
     MatAutocompleteModule,
     MatChipsModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule,
+    MatSortModule
   ]
 })
 export class MaterialModule { }

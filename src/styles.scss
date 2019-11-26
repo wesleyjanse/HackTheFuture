@@ -1,17 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/scss/bootstrap";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 *{
     padding: 0;
     margin: 0;
 }
 
+html{
+    font-family: 'Roboto', sans-serif;
+}
+
 a {
     text-decoration: none; /* no underline */
   }
 
+  h1,h2,h3{
+      font-weight: 100;
+  }
 
 $mat-myapp-primary: (
     50 : #eaf4fa,
