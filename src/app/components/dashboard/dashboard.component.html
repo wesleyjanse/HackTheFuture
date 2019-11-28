@@ -4,6 +4,7 @@
     </div>
   </div>
   <mat-tab-group>
+<<<<<<< HEAD
     <mat-tab label="Users"> 
             <mat-toolbar class="mat-elevation-z4">
                 <mat-form-field class="full-width">
@@ -36,6 +37,52 @@
               <tr mat-row *matRowDef="let row; columns: displayedColumnsUsers;" (click)="moreInfo(row)"></tr>
             </table>
             <mat-paginator  #accountPaginator [pageSizeOptions]="[25, 50, 100]" hidePageSize="false" showFirstLastButtons="true"></mat-paginator>
+=======
+    <mat-tab label="Users">
+      <mat-toolbar class="mat-elevation-z4">
+        <mat-form-field class="full-width">
+          <input type="text" placeholder="IBAN" aria-label="Number" matInput [formControl]="filterIban">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <input type="text" placeholder="Name" aria-label="Number" matInput [formControl]="filterName">
+        </mat-form-field>
+      </mat-toolbar>
+      <table mat-table [dataSource]="dataSourceAccounts" matSort class="mat-elevation-z8  mt-3">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="IBAN">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>IBAN </th>
+          <ng-container *ngIf="apiPath != '/swissnationalbank/'">
+            <td  mat-cell *matCellDef="let element">{{element.account.iban}} {{element.account.card}}</td>
+          </ng-container>
+          <ng-container *ngIf="apiPath == '/swissnationalbank/'">
+            <td  mat-cell *matCellDef="let element">{{element.card.account}}</td>
+          </ng-container>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} {{element.surname}}  {{element.firstName}} {{element.lastName}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Balance">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Balance </th>
+          <ng-container *ngIf="apiPath == '/swissnationalbank/'">
+            <td mat-cell *matCellDef="let element"> {{element.card.balance}} </td>
+          </ng-container>
+          <ng-container *ngIf="apiPath != '/swissnationalbank/'">
+            <td mat-cell *matCellDef="let element"> {{element.account.balance}} </td>
+          </ng-container>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsUsers"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsUsers;"></tr>
+      </table>
+      <mat-paginator #accountPaginator [pageSizeOptions]="[25, 50, 100]" hidePageSize="false"
+        showFirstLastButtons="true"></mat-paginator>
+>>>>>>> fix alle banken
 
     </mat-tab>
     <mat-tab label="Transactions">
@@ -47,7 +94,7 @@
           <input type="text" placeholder="Recipient" aria-label="Number" matInput [formControl]="filterRecipient">
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input type="text" placeholder="Amount" aria-label="Number" matInput [formControl]="filterAmount">
+          <input type="number" placeholder="Amount" aria-label="Number" matInput [formControl]="filterAmount">
         </mat-form-field>
         <mat-form-field class="full-width">
           <input type="date" placeholder="Date" aria-label="Number" matInput [formControl]="filterDate">
@@ -82,7 +129,8 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <mat-paginator #transactionsPaginator [pageSizeOptions]="[25, 50, 100]" hidePageSize="false" showFirstLastButtons="true"></mat-paginator>
+      <mat-paginator #transactionsPaginator [pageSizeOptions]="[25, 50, 100]" hidePageSize="false"
+        showFirstLastButtons="true"></mat-paginator>
     </mat-tab>
   </mat-tab-group>
 

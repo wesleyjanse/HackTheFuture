@@ -3,6 +3,11 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Bank } from '../models/bank.model';
 import { Transaction } from '../models/transaction.model';
+<<<<<<< HEAD
+=======
+import { BankAccount } from '../models/bankaccount.model';
+import { Account } from '../models/accounts.model';
+>>>>>>> fix alle banken
 import { Person } from '../models/person.model';
 
 @Injectable({
