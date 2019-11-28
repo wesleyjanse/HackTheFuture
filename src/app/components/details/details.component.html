@@ -18,9 +18,9 @@
                     <th>Recipient</th>
                     <th>Amount</th>
                 </tr>
-                <tr *ngFor="let transaction of person.account.transactions">
-                    <td>{{transaction.sender}}</td>
-                    <td>{{transaction.recipient}}</td>
+                <tr *ngFor="let transaction of soortTransaction">
+                    <td>{{transaction.sender}}{{transaction.creditorIBAN}}</td>
+                    <td>{{transaction.recipient}}{{transaction.debitorIBAN}}</td>
                     <td [ngStyle]="{'background-color':transaction.amount > averageAmount *2 ? 'red' : 'white' }">${{transaction.amount}}</td>
                 </tr>
             </table>

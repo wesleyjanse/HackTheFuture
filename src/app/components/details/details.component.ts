@@ -17,6 +17,7 @@ totalReceived:number;
 totalSend:number;
 iban:string;
 cardAccount:string;
+soortTransaction;
   constructor(public route:ActivatedRoute) { }
 
   ngOnInit() {
@@ -28,6 +29,7 @@ cardAccount:string;
     let tussenVerzonden=0;
     let teller =0;
     if(this.person.account!= undefined){
+      this.soortTransaction=this.person.account.transactions;
      transactions= this.person.account.transactions;
      this.iban = this.person.account.iban;
      transactions.forEach(transaction => {
@@ -41,6 +43,7 @@ cardAccount:string;
             }
           });
     }else if(this.person.card!= undefined){
+      this.soortTransaction = this.person.card.transactions;
       transactions= this.person.card.transactions;
       this.cardAccount = this.person.card.account;
       transactions.forEach(transaction => {
