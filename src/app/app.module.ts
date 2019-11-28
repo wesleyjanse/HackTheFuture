@@ -10,7 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MatToolbarModule, MatButtonModule, MatIconModule } from '@angular/material';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ChooseBankComponent } from './choose-bank/choose-bank.component';
+import { ChooseBankComponent } from './components/choose-bank/choose-bank.component';
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
