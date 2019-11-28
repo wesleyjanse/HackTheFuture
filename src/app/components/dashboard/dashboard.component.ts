@@ -27,21 +27,8 @@ export class DashboardComponent implements OnInit {
   options: Transaction[];
   optionsAccounts:Person[];
   public apiPath:string;
-  constructor(private _NavbarService: NavbarService, private fb: FormBuilder, private _dashBoardService: DashboardService,public route:ActivatedRoute) {
-    this._NavbarService.show();
-    this.dataSource.filterPredicate = this.createFilter();
-    this._dashBoardService.getBankTransacitons("/caymannationalbank/").subscribe(res => {
-      this.options = res;
-      // this._dashBoardService.getBankAccounts("/caymannationalbank/").subscribe(result => {
-      //   this.accounts = result;
-      // })
-      this.dataSource.data = this.options.result;
-      console.log(this.options);
-
-    })
-  }
-
-
+  
+  dataSourceAccounts = new MatTableDataSource(this.optionsAccounts);
   dataSource = new MatTableDataSource(this.options);
   accounts: Accounts[];
   transactions: Transaction[];
@@ -49,6 +36,7 @@ export class DashboardComponent implements OnInit {
   filterSender = new FormControl('');
   filterAmount = new FormControl('');
   filterDate = new FormControl('');
+  filterName = new FormControl('');
 
   displayedColumns: string[] = ['Sender', 'Recipient', 'Amount', 'Time'];
   displayedColumnsUsers: string[] = ['IBAN', 'Name', 'Balance'];
@@ -56,22 +44,38 @@ export class DashboardComponent implements OnInit {
     sender: '',
     recipient: '',
     amount: '',
-    time: ''
+    time: '',
+    name:''
   };
-  dataSourceAccounts = new MatTableDataSource(this.optionsAccounts);
-
+  filterValuesAccount = {
+    firstName:'',
+    iban:''
+  };
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  ngOnInit() {
-    this.dataSource.sort = this.sort;
+  constructor(private _NavbarService: NavbarService, private fb: FormBuilder, private _dashBoardService: DashboardService,public route:ActivatedRoute) {
+    this._NavbarService.show();
     this.apiPath = this.route.snapshot.queryParamMap.get('apiPath');
-    this.filterRecipient.valueChanges;
+
+    this.dataSource.filterPredicate = this.createFilter();
+    this.dataSourceAccounts.filterPredicate = this.createFilterAccount();
+
+    this._dashBoardService.getBankTransacitons(this.apiPath).subscribe(res => {
+      this.options = res;
+      this.dataSource.data = this.options.result;
+      console.log(this.options);
+    })
+
     this._dashBoardService.getBankAccounts(this.apiPath).subscribe(res => {
       this.optionsAccounts = res;
       this.dataSourceAccounts.data = this.optionsAccounts.result;
       console.log(this.optionsAccounts);
 
     })
+  }
+
+  ngOnInit() {
+    
     this.dataSource.sort = this.sort;
     this.filterRecipient.valueChanges
       .subscribe(
@@ -79,7 +83,12 @@ export class DashboardComponent implements OnInit {
           this.filterValues.recipient = recipient.toLowerCase();
           this.dataSource.filter = JSON.stringify(this.filterValues);
         }
-      )
+      );
+      this.dataSourceAccounts.sort = this.sort;
+      this.filterName.valueChanges.subscribe(name =>{
+        this.filterValuesAccount.firstName = name.toLowerCase();
+        this.dataSourceAccounts.filter = JSON.stringify(this.filterValuesAccount);
+      });
   }
 
 
@@ -89,5 +98,13 @@ export class DashboardComponent implements OnInit {
       return data.recipient.toLowerCase().indexOf(searchTerms.recipient) !== -1
     }
     return filterFunction;
+  }
+  createFilterAccount(): (data: any, filter: string) => boolean {
+    let filterFunctionAccount = function (data, filter): boolean {
+      console.log(data)
+      let searchTerms = JSON.parse(filter);
+      return data.firstName.toLowerCase().indexOf(searchTerms.firstName) !== -1
+    }
+    return filterFunctionAccount;
   }
 }
