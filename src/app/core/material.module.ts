@@ -4,7 +4,8 @@ import { MatToolbarModule, MatIconModule, MatSidenavModule,
          MatListModule, MatButtonModule, MatCardModule, MatGridListModule, 
          MatBadgeModule, MatProgressSpinnerModule, MatExpansionModule,
          MatSlideToggleModule, MatTooltipModule, MatStepperModule, MatDialogModule,
-         MatAutocompleteModule, MatChipsModule, MatSnackBarModule, MatTabsModule, MatTableModule
+         MatAutocompleteModule, MatChipsModule, MatSnackBarModule, MatTabsModule, MatTableModule,
+         MatPaginatorModule
           } from  '@angular/material';
           import {MatSortModule} from '@angular/material/sort';
 
@@ -31,7 +32,8 @@ import { MatToolbarModule, MatIconModule, MatSidenavModule,
     MatSnackBarModule,
     MatTabsModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatPaginatorModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -54,7 +56,8 @@ import { MatToolbarModule, MatIconModule, MatSidenavModule,
     MatSnackBarModule,
     MatTabsModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule { }

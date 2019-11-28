@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NavbarService } from 'src/app/navbar.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DashboardService } from 'src/app/services/dashboard.service';
@@ -11,12 +10,13 @@ import { Transaction } from 'src/app/models/transaction.model';
 import { BankAccount } from 'src/app/models/bankaccount.model';
 import { Accounts } from 'src/app/models/accounts.model';
 import { Person } from 'src/app/models/person.model';
+import { send } from 'q';
 
 export interface PeriodicElement {
-  sender: string;
-  recipient: string;
-  amount: number;
-  time: Date;
+  Sender: string;
+  Recipient: string;
+  Amount: number;
+  Time: Date;
 }
 @Component({
   selector: 'app-dashboard',
@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit {
   options: Transaction[];
   optionsAccounts:Person[];
   public apiPath:string;
-  
   dataSourceAccounts = new MatTableDataSource(this.optionsAccounts);
   dataSource = new MatTableDataSource(this.options);
   accounts: Accounts[];
@@ -68,12 +67,14 @@ export class DashboardComponent implements OnInit {
 
     this._dashBoardService.getBankAccounts(this.apiPath).subscribe(res => {
       this.optionsAccounts = res;
-      this.dataSourceAccounts.data = this.optionsAccounts.result;
+      this.dataSourceAccounts.data= this.optionsAccounts.result;
       console.log(this.optionsAccounts);
 
     })
   }
 
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  
   ngOnInit() {
     
     this.dataSource.sort = this.sort;
@@ -89,13 +90,35 @@ export class DashboardComponent implements OnInit {
         this.filterValuesAccount.firstName = name.toLowerCase();
         this.dataSourceAccounts.filter = JSON.stringify(this.filterValuesAccount);
       });
+      
+      this.filterSender.valueChanges
+      .subscribe(
+        sender => {
+          this.filterValues.sender = sender.toLowerCase();
+          this.dataSource.filter = JSON.stringify(this.filterValues);
+        }
+      )
+      this.filterAmount.valueChanges
+      .subscribe(
+        sender => {
+          console.log(sender)
+          this.filterValues.amount > sender;
+          this.dataSource.filter = JSON.stringify(this.filterValues);
+        }
+      )
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
   createFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function (data, filter): boolean {
       let searchTerms = JSON.parse(filter);
       return data.recipient.toLowerCase().indexOf(searchTerms.recipient) !== -1
+      && data.sender.toString().toLowerCase().indexOf(searchTerms.sender) !== -1
+      && data.amount.toString().toLowerCase().indexOf(searchTerms.amount) !== -1
     }
     return filterFunction;
   }

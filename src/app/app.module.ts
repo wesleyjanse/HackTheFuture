@@ -13,8 +13,6 @@ import { ChooseBankComponent } from './components/choose-bank/choose-bank.compon
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SecurityInterceptor } from './security/security.interceptor';
-import { JwPaginationComponent } from 'jw-angular-pagination';
-
 
 const appRoutes: Routes = [
   { path: '', component: ChooseBankComponent },
@@ -29,7 +27,7 @@ const appRoutes: Routes = [
     NavbarComponent,
     DashboardComponent,
     ChooseBankComponent
-  ],
+    ],
   imports: [
     BrowserModule,
     MaterialModule,
