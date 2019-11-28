@@ -33,7 +33,7 @@
         
         
               <tr mat-header-row *matHeaderRowDef="displayedColumnsUsers"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumnsUsers;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsUsers;" (click)="moreInfo(row)"></tr>
             </table>
             <mat-paginator  #accountPaginator [pageSizeOptions]="[25, 50, 100]" hidePageSize="false" showFirstLastButtons="true"></mat-paginator>
 

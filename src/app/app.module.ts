@@ -13,10 +13,12 @@ import { ChooseBankComponent } from './components/choose-bank/choose-bank.compon
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SecurityInterceptor } from './security/security.interceptor';
+import { DetailsComponent } from './components/details/details.component';
 
 const appRoutes: Routes = [
   { path: '', component: ChooseBankComponent },
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'details',component:DetailsComponent}
 
 ];
 
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
     HomeComponent,
     NavbarComponent,
     DashboardComponent,
-    ChooseBankComponent
+    ChooseBankComponent,
+    DetailsComponent
     ],
   imports: [
     BrowserModule,

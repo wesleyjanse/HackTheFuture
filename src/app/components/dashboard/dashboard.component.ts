@@ -5,10 +5,10 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DashboardService } from 'src/app/services/dashboard.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Transaction } from 'src/app/models/transaction.model';
 import { BankAccount } from 'src/app/models/bankaccount.model';
-import { Accounts } from 'src/app/models/accounts.model';
+import { Account } from 'src/app/models/account.model';
 import { Person } from 'src/app/models/person.model';
 import { send } from 'q';
 
@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   public apiPath:string;
   dataSourceAccounts = new MatTableDataSource(this.optionsAccounts);
   dataSource = new MatTableDataSource(this.options);
-  accounts: Accounts[];
+  accounts: Account[];
   transactions: Transaction[];
   filterRecipient = new FormControl('');
   filterSender = new FormControl('');
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit {
   };
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private _NavbarService: NavbarService, private fb: FormBuilder, private _dashBoardService: DashboardService,public route:ActivatedRoute) {
+  constructor(private _NavbarService: NavbarService, private fb: FormBuilder, private _dashBoardService: DashboardService,public route:ActivatedRoute,public router:Router) {
     this._NavbarService.show();
     this.apiPath = this.route.snapshot.queryParamMap.get('apiPath');
 
@@ -130,5 +130,12 @@ export class DashboardComponent implements OnInit {
       return data.firstName.toLowerCase().indexOf(searchTerms.firstName) !== -1
     }
     return filterFunctionAccount;
+  }
+  moreInfo(person:Person){
+    
+    console.log(person)
+    this.router.navigate([
+      "/details"
+     ],{queryParams: {person:JSON.stringify(person)}})
   }
 }
