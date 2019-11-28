@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit {
   ];
 
   constructor(private _NavbarService: NavbarService, private fb: FormBuilder) {
+    this._NavbarService.show();
     this.dataSource.data = this.options;
     this.dataSource.filterPredicate = this.createFilter();
    }
