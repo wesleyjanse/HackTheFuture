@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
     this.dataSource.data = this.options;
     this.dataSource.filterPredicate = this.createFilter();
 
-    this._dashBoardService.getBankAccounts("caymannationalbank").subscribe(res => {
+    this._dashBoardService.getBankAccounts("/caymannationalbank/").subscribe(res => {
       console.log(res);
     })
    }

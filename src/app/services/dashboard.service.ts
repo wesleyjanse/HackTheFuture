@@ -14,10 +14,10 @@ export class DashboardService {
   }
 
   getBankTransacitons(bankName: string): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>("htf.zinderlabs.com/" + bankName + "/transactions")
+    return this.http.get<Transaction[]>("htf.zinderlabs.com" + bankName + "transactions")
   }
 
   getBankAccounts(bankName: string): Observable<BankAccount[]> {
-    return this.http.get<BankAccount[]>("htf.zinderlabs.com/" + bankName + "/transactions")
+    return this.http.get<BankAccount[]>("htf.zinderlabs.com" + bankName + "transactions")
   }
 }
