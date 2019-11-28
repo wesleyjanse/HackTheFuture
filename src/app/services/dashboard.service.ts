@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Bank } from '../models/bank.model';
 import { Transaction } from '../models/transaction.model';
 import { BankAccount } from '../models/bankaccount.model';
+import { Accounts } from '../models/accounts.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class DashboardService {
     return this.http.get<Transaction[]>("https://htf.zinderlabs.com" + bankName + "transactions")
   }
 
-  getBankAccounts(bankName: string): Observable<BankAccount[]> {
-    return this.http.get<BankAccount[]>("https://htf.zinderlabs.com" + bankName + "transactions")
+  getBankAccounts(bankName: string): Observable<Accounts[]> {
+    return this.http.get<Accounts[]>("https://htf.zinderlabs.com" + bankName + "accounts")
   }
 }

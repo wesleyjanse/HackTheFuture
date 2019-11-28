@@ -7,5 +7,5 @@ export class BankAccount {
         public created:Date,
         public balance:number,
         public currency:string,
-        public transaction:Transaction){}
+        public transaction:Transaction[]){}
     }

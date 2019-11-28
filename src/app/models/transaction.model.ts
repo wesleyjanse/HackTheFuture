@@ -6,5 +6,7 @@ export class Transaction {
         public amount: number,
         public currency: string,
         public time:Date,
-        public message:string){}
+        public message:string,
+        public senderName?: string,
+        public receiverName?: string){}
     }

@@ -6,7 +6,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DashboardService } from 'src/app/services/dashboard.service';
+<<<<<<< HEAD
 import { ActivatedRoute } from '@angular/router';
+=======
+import { Transaction } from 'src/app/models/transaction.model';
+import { BankAccount } from 'src/app/models/bankaccount.model';
+import { Accounts } from 'src/app/models/accounts.model';
+>>>>>>> creating table
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -38,11 +44,27 @@ export class DashboardComponent implements OnInit {
     this.dataSource.data = this.options;
     this.dataSource.filterPredicate = this.createFilter();
 
-    this._dashBoardService.getBanks().subscribe(res => {
-      console.log(res);
-    })
-   }
+    this._dashBoardService.getBankTransacitons("/caymannationalbank/").subscribe(res => {
+      this.transactions = res;
+      this._dashBoardService.getBankAccounts("/caymannationalbank/").subscribe(result => {
+        this.accounts = result;
+        console.log(this.accounts)
+        // this.transactions.forEach(transaction => {
+        //   accounts.forEach(account => {
+        //     if (transaction.sender == account.iban){
+        //       // transaction.senderName = acc
+        //     }
+        //   })
+        //   transaction.senderName
+        // })
+      })
 
+      console.log(this.transactions);
+    })
+  }
+
+  accounts: Accounts[];
+  transactions: Transaction[];
   filter = new FormControl('');
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   filterValues = {
@@ -70,7 +92,7 @@ export class DashboardComponent implements OnInit {
 
 
   createFilter(): (data: any, filter: string) => boolean {
-    let filterFunction = function(data, filter): boolean {
+    let filterFunction = function (data, filter): boolean {
       let searchTerms = JSON.parse(filter);
       return data.name.toLowerCase().indexOf(searchTerms.name) !== -1
     }
