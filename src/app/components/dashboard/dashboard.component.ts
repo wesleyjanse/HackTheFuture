@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Transaction } from 'src/app/models/transaction.model';
 import { BankAccount } from 'src/app/models/bankaccount.model';
 import { Accounts } from 'src/app/models/accounts.model';
+import { Person } from 'src/app/models/person.model';
 
 export interface PeriodicElement {
   sender: string;
@@ -24,7 +25,7 @@ export interface PeriodicElement {
 })
 export class DashboardComponent implements OnInit {
   options: Transaction[];
-
+  optionsAccounts:Person[];
   public apiPath:string;
   constructor(private _NavbarService: NavbarService, private fb: FormBuilder, private _dashBoardService: DashboardService,public route:ActivatedRoute) {
     this._NavbarService.show();
@@ -50,19 +51,29 @@ export class DashboardComponent implements OnInit {
   filterDate = new FormControl('');
 
   displayedColumns: string[] = ['Sender', 'Recipient', 'Amount', 'Time'];
+  displayedColumnsUsers: string[] = ['IBAN', 'Name', 'Balance'];
   filterValues = {
     sender: '',
     recipient: '',
     amount: '',
     time: ''
   };
- 
+  dataSourceAccounts = new MatTableDataSource(this.optionsAccounts);
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.apiPath = this.route.snapshot.queryParamMap.get('apiPath');
+    this.filterRecipient.valueChanges
+    this.apiPath = this.route.snapshot.queryParamMap.get('apiPath');
+    this._dashBoardService.getBankAccounts(this.apiPath).subscribe(res => {
+      this.optionsAccounts = res;
+      this.dataSourceAccounts.data = this.optionsAccounts.result;
+      console.log(this.optionsAccounts);
+
+    })
+    this.dataSource.sort = this.sort;
     this.filterRecipient.valueChanges
       .subscribe(
         recipient => {
