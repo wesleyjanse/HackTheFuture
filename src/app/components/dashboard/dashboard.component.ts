@@ -48,6 +48,14 @@ export class DashboardComponent implements OnInit {
     time: '',
     name: ''
   };
+
+  filterValuesBelize = {
+    originAccount: '',
+    destinationAccount: '',
+    amount: 0,
+    dateTime: '',
+  };
+
   filterValuesAccount = {
     firstName: '',
     iban: ''
@@ -64,20 +72,22 @@ export class DashboardComponent implements OnInit {
   };
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private _NavbarService: NavbarService, private fb: FormBuilder, private _dashBoardService: DashboardService,public route:ActivatedRoute,public router:Router) {
+  constructor(private _NavbarService: NavbarService, private fb: FormBuilder, private _dashBoardService: DashboardService, public route: ActivatedRoute, public router: Router) {
     this._NavbarService.show();
     this.apiPath = this.route.snapshot.queryParamMap.get('apiPath');
 
-    this.dataSource.filterPredicate = this.createFilter();
 
-    if (this.apiPath === "/belizebank/") {
+    if (this.apiPath == "/belizebank/") {
       this.dataSourceAccounts.filterPredicate = this.createFilterAccountBelize();
+      this.dataSource.filterPredicate = this.createFilterBelize();
     }
-    if (this.apiPath === "/swissnationalbank/") {
+    else if (this.apiPath == "/swissnationalbank/") {
       this.dataSourceAccounts.filterPredicate = this.createFilterAccountSwiss();
     }
     else {
       this.dataSourceAccounts.filterPredicate = this.createFilterAccount();
+      this.dataSource.filterPredicate = this.createFilter();
+
     }
 
     this._dashBoardService.getBankTransacitons(this.apiPath).subscribe(res => {
@@ -97,40 +107,11 @@ export class DashboardComponent implements OnInit {
   @ViewChild('transactionsPaginator', { read: MatPaginator, static: true }) transactionsPaginator: MatPaginator;
   @ViewChild('accountPaginator', { read: MatPaginator, static: true }) accountPaginator: MatPaginator;
   ngOnInit() {
+    console.log(this.apiPath)
     this.dataSource.sort = this.sort;
-    this.filterRecipient.valueChanges
-      .subscribe(
-        recipient => {
-          this.filterValues.recipient = recipient.toLowerCase();
-          this.dataSource.filter = JSON.stringify(this.filterValues);
-        }
-      );
-    this.dataSourceAccounts.sort = this.sort;
-    this.filterSender.valueChanges
-      .subscribe(
-        sender => {
-          this.filterValues.sender = sender.toLowerCase();
-          this.dataSource.filter = JSON.stringify(this.filterValues);
-        }
-      )
-    this.filterAmount.valueChanges
-      .subscribe(
-        amount => {
-          this.filterValues.amount = Number(amount);
-          this.dataSource.filter = JSON.stringify(this.filterValues);
-        }
-      )
-    this.filterDate.valueChanges
-      .subscribe(
-        sender => {
-          let value = this.formatDate(sender).toString();
-          console.log(value)
-          this.filterValues.time = value;
-          this.dataSource.filter = JSON.stringify(this.filterValues);
-        }
-      )
 
-    if (this.apiPath === "/belizebank/") {
+
+    if (this.apiPath == "/belizebank/") {
       this.filterName.valueChanges.subscribe(name => {
         this.filterValuesAccountBelize.name = name.toLowerCase();
         this.dataSourceAccounts.filter = JSON.stringify(this.filterValuesAccountBelize);
@@ -138,10 +119,44 @@ export class DashboardComponent implements OnInit {
 
       this.filterIban.valueChanges.subscribe(iban => {
         console.log(iban)
-        this.filterValuesAccountBelize.card = iban.toLowerCase();
+        this.filterValuesAccountBelize.account = iban.toLowerCase();
         this.dataSourceAccounts.filter = JSON.stringify(this.filterValuesAccountBelize);
       })
-    } else if (this.apiPath === "/swissnationalbank/") {
+
+
+      this.filterRecipient.valueChanges
+        .subscribe(
+          recipient => {
+            this.filterValuesBelize.destinationAccount = recipient.toLowerCase();
+            this.dataSource.filter = JSON.stringify(this.filterValuesBelize);
+          }
+        );
+      this.dataSourceAccounts.sort = this.sort;
+      this.filterSender.valueChanges
+        .subscribe(
+          sender => {
+            this.filterValuesBelize.originAccount = sender.toLowerCase();
+            this.dataSource.filter = JSON.stringify(this.filterValuesBelize);
+          }
+        )
+      this.filterAmount.valueChanges
+        .subscribe(
+          amount => {
+            this.filterValuesBelize.amount = Number(amount);
+            this.dataSource.filter = JSON.stringify(this.filterValuesBelize);
+          }
+        )
+      this.filterDate.valueChanges
+        .subscribe(
+          sender => {
+            let value = this.formatDate(sender).toString();
+            console.log(value)
+            this.filterValuesBelize.dateTime = value;
+            this.dataSource.filter = JSON.stringify(this.filterValuesBelize);
+          }
+        )
+
+    } else if (this.apiPath == "/swissnationalbank/") {
       this.filterName.valueChanges.subscribe(name => {
         this.filterValuesAccountSwiss.name = name.toLowerCase();
         this.dataSourceAccounts.filter = JSON.stringify(this.filterValuesAccountSwiss);
@@ -164,6 +179,38 @@ export class DashboardComponent implements OnInit {
         this.filterValuesAccount.iban = iban.toLowerCase();
         this.dataSourceAccounts.filter = JSON.stringify(this.filterValuesAccount);
       })
+
+      this.filterRecipient.valueChanges
+        .subscribe(
+          recipient => {
+            this.filterValues.recipient = recipient.toLowerCase();
+            this.dataSource.filter = JSON.stringify(this.filterValues);
+          }
+        );
+      this.dataSourceAccounts.sort = this.sort;
+      this.filterSender.valueChanges
+        .subscribe(
+          sender => {
+            this.filterValues.sender = sender.toLowerCase();
+            this.dataSource.filter = JSON.stringify(this.filterValues);
+          }
+        )
+      this.filterAmount.valueChanges
+        .subscribe(
+          amount => {
+            this.filterValues.amount = Number(amount);
+            this.dataSource.filter = JSON.stringify(this.filterValues);
+          }
+        )
+      this.filterDate.valueChanges
+        .subscribe(
+          sender => {
+            let value = this.formatDate(sender).toString();
+            console.log(value)
+            this.filterValues.time = value;
+            this.dataSource.filter = JSON.stringify(this.filterValues);
+          }
+        )
     }
   }
 
@@ -192,6 +239,17 @@ export class DashboardComponent implements OnInit {
     }
     return filterFunction;
   }
+  createFilterBelize(): (data: any, filter: string) => boolean {
+    let filterFunction = function (data, filter): boolean {
+      let searchTerms = JSON.parse(filter);
+      return data.destinationAccount.toLowerCase().indexOf(searchTerms.destinationAccount) !== -1
+        && data.originAccount.toString().toLowerCase().indexOf(searchTerms.originAccount) !== -1
+        && data.amount.toString().toLowerCase().indexOf(searchTerms.amount) !== -1
+        && data.dateTime.toString().toLowerCase().indexOf(searchTerms.dateTime) !== -1
+    }
+    return filterFunction;
+  }
+
   createFilterAccount(): (data: any, filter: string) => boolean {
     let filterFunctionAccount = function (data, filter): boolean {
       let searchTerms = JSON.parse(filter);
@@ -218,11 +276,11 @@ export class DashboardComponent implements OnInit {
     }
     return filterFunctionAccount;
   }
-  moreInfo(person:Person){
-    
+  moreInfo(person: Person) {
+
     console.log(person)
     this.router.navigate([
       "/details"
-     ],{queryParams: {person:JSON.stringify(person)}})
+    ], { queryParams: { person: JSON.stringify(person) } })
   }
 }

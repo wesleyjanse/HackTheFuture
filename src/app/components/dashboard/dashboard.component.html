@@ -18,11 +18,11 @@
         <!-- Position Column -->
         <ng-container matColumnDef="IBAN">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>IBAN </th>
-          <ng-container *ngIf="apiPath != '/swissnationalbank/'">
+          <ng-container *ngIf="apiPath != '/swissnationalbank/' ">
             <td  mat-cell *matCellDef="let element">{{element.account.iban}} {{element.account.card}}</td>
           </ng-container>
-          <ng-container *ngIf="apiPath == '/swissnationalbank/'">
-            <td  mat-cell *matCellDef="let element">{{element.card.account}}</td>
+          <ng-container *ngIf="apiPath == '/swissnationalbank/' || apiPath == '/dbssingapore/'">
+            <td  mat-cell *matCellDef="let element">{{element.card.account}} {{element.card.iban}}</td>
           </ng-container>
         </ng-container>
 
@@ -71,13 +71,13 @@
         <!-- Position Column -->
         <ng-container matColumnDef="Sender">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Sender </th>
-          <td mat-cell *matCellDef="let element"> {{element.sender}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.sender}} {{element.originAccount}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="Recipient">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Recipient </th>
-          <td mat-cell *matCellDef="let element"> {{element.recipient}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.recipient}} {{element.destinationAccount}} </td>
         </ng-container>
 
         <!-- Weight Column -->
@@ -89,7 +89,7 @@
         <!-- Symbol Column -->
         <ng-container matColumnDef="Time">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
-          <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.time}} {{element.dateTime}}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

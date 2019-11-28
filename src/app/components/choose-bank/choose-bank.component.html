@@ -1,13 +1,15 @@
 <div class="container">
-    <h1>Choose a bank:</h1>
-    <div  class="row ">
-        <mat-card *ngFor="let bank of allBanks" class="col-md-4 m-5">
-            <mat-card-header>
-              <mat-card-title >{{bank.name}}</mat-card-title>
-            </mat-card-header>
-            <mat-card-actions style="text-align: center;">
-              <button mat-button (click)="toBank(bank.apiPath)">To bank</button>
-            </mat-card-actions>
-          </mat-card>
+  <h1>Choose a bank:</h1>
+  <div class="row ">
+    <div class="col-md-4 mt-4" *ngFor="let bank of allBanks">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{bank.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-actions style="text-align: center;">
+          <button mat-button (click)="toBank(bank.apiPath)">To bank</button>
+        </mat-card-actions>
+      </mat-card>
     </div>
+  </div>
 </div>
