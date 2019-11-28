@@ -1,5 +1,6 @@
 export class Transaction {
     constructor(  
+        public result: any,
         public id:string,
         public sender:string,
         public recipient:string,
