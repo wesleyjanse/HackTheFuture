@@ -4,100 +4,53 @@
     </div>
   </div>
   <mat-tab-group>
-    <mat-tab label="Users"> 
-        <div class="row">
-            <mat-toolbar class="mat-elevation-z4">
-              <mat-form-field class="full-width">
-                <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="filter">
-              </mat-form-field>
-            </mat-toolbar>
-            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8  mt-3">
-        
-              <!-- Position Column -->
-              <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-              </ng-container>
-        
-              <!-- Name Column -->
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-              </ng-container>
-        
-              <!-- Weight Column -->
-              <ng-container matColumnDef="weight">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
-                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-              </ng-container>
-        
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="symbol">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-              </ng-container>
-        
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="test">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Test</th>
-                <td mat-cell *matCellDef="let element"> test </td>
-              </ng-container>
-        
-        
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-          </div>
+    <mat-tab label="Users">
+      <mat-toolbar class="mat-elevation-z4">
+        <mat-form-field class="full-width">
+          <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="filter">
+        </mat-form-field>
+      </mat-toolbar>
     </mat-tab>
-
-
-
     <mat-tab label="Transactions">
-        <div class="row">
-            <mat-toolbar class="mat-elevation-z4">
-              <mat-form-field class="full-width">
-                <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="filter">
-              </mat-form-field>
-            </mat-toolbar>
-            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8  mt-3">
-        
-              <!-- Position Column -->
-              <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-              </ng-container>
-        
-              <!-- Name Column -->
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-              </ng-container>
-        
-              <!-- Weight Column -->
-              <ng-container matColumnDef="weight">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>
-                <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-              </ng-container>
-        
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="symbol">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
-                <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-              </ng-container>
-        
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="test">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Test</th>
-                <td mat-cell *matCellDef="let element"> test </td>
-              </ng-container>
-        
-        
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-          </div>
+      <mat-toolbar class="mat-elevation-z4">
+        <mat-form-field class="full-width">
+          <input type="text" placeholder="Sender" aria-label="Number" matInput [formControl]="filterSender">
+          <input type="text" placeholder="Recipient" aria-label="Number" matInput [formControl]="filterRecipient">
+          <input type="text" placeholder="Amount" aria-label="Number" matInput [formControl]="filterAmount">
+          <input type="date" placeholder="Date" aria-label="Number" matInput [formControl]="filterTime">
+        </mat-form-field>
+      </mat-toolbar>
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8  mt-3">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="Sender">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Sender </th>
+          <td mat-cell *matCellDef="let element"> {{element.sender}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="Recipient">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Recipient </th>
+          <td mat-cell *matCellDef="let element"> {{element.recipient}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Amount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Amount </th>
+          <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="Time">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
+          <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
 
     </mat-tab>
   </mat-tab-group>
- 
+
 </div>

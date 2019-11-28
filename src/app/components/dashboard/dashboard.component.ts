@@ -29,11 +29,26 @@ export class DashboardComponent implements OnInit {
   constructor(private _NavbarService: NavbarService, private fb: FormBuilder, private _dashBoardService: DashboardService,public route:ActivatedRoute) {
     this._NavbarService.show();
     this.dataSource.filterPredicate = this.createFilter();
+    this._dashBoardService.getBankTransacitons("/caymannationalbank/").subscribe(res => {
+      this.options = res;
+      // this._dashBoardService.getBankAccounts("/caymannationalbank/").subscribe(result => {
+      //   this.accounts = result;
+      // })
+      this.dataSource.data = this.options.result;
+      console.log(this.options);
+
+    })
   }
 
+
+  dataSource = new MatTableDataSource(this.options);
   accounts: Accounts[];
   transactions: Transaction[];
-  filter = new FormControl('');
+  filterRecipient = new FormControl('');
+  filterSender = new FormControl('');
+  filterAmount = new FormControl('');
+  filterDate = new FormControl('');
+
   displayedColumns: string[] = ['Sender', 'Recipient', 'Amount', 'Time'];
   filterValues = {
     sender: '',
@@ -41,26 +56,17 @@ export class DashboardComponent implements OnInit {
     amount: '',
     time: ''
   };
-  dataSource = new MatTableDataSource(this.options);
+ 
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ngOnInit() {
-    this._dashBoardService.getBankTransacitons("/caymannationalbank/").subscribe(res => {
-      this.options = res.result;
-      // this._dashBoardService.getBankAccounts("/caymannationalbank/").subscribe(result => {
-      //   this.accounts = result;
-      // })
-      this.dataSource.data = this.options;
-      console.log(this.options);
-
-    })
     this.dataSource.sort = this.sort;
     this.apiPath = this.route.snapshot.queryParamMap.get('apiPath');
-    this.filter.valueChanges
+    this.filterRecipient.valueChanges
       .subscribe(
-        name => {
-          this.filterValues.amount = name.toLowerCase();
+        recipient => {
+          this.filterValues.recipient = recipient.toLowerCase();
           this.dataSource.filter = JSON.stringify(this.filterValues);
         }
       )
@@ -70,7 +76,7 @@ export class DashboardComponent implements OnInit {
   createFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function (data, filter): boolean {
       let searchTerms = JSON.parse(filter);
-      return data.name.toLowerCase().indexOf(searchTerms.name) !== -1
+      return data.recipient.toLowerCase().indexOf(searchTerms.recipient) !== -1
     }
     return filterFunction;
   }

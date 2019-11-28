@@ -7,7 +7,7 @@ import { MaterialModule } from './core/material.module';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule, Routes } from '@angular/router';
-import { MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule, MatTableModule, MatSortModule } from '@angular/material';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChooseBankComponent } from './components/choose-bank/choose-bank.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -39,7 +39,10 @@ const appRoutes: Routes = [
     MatIconModule,
     BrowserAnimationsModule,
     MatCardModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserModule,
+    MatTableModule,
+    MatSortModule
   ],
   exports: [
     MaterialModule,
