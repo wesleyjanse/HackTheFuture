@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   playVideo() {
     this.clicked = true;
     this.myVideo.nativeElement.play();
-    setTimeout( () => { this.router.navigate(['dashboard']); }, 4500 );
+    setTimeout( () => { this.router.navigate(['choose']); }, 4500 );
 
     
   }

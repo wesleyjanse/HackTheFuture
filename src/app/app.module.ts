@@ -16,7 +16,8 @@ import { SecurityInterceptor } from './security/security.interceptor';
 import { DetailsComponent } from './components/details/details.component';
 
 const appRoutes: Routes = [
-  { path: '', component: ChooseBankComponent },
+  { path: '', component: HomeComponent },
+  { path: 'choose', component: ChooseBankComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'details',component:DetailsComponent}
 
