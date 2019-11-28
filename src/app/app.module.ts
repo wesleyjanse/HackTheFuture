@@ -5,7 +5,6 @@ import { AppComponent } from './app.component';
 import { FormSharedModule } from './core/form.module';
 import { MaterialModule } from './core/material.module';
 import { HomeComponent } from './components/home/home.component';
-import { AnomalyComponent } from './components/anomaly/anomaly.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule, Routes } from '@angular/router';
 import { MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule } from '@angular/material';
@@ -17,10 +16,8 @@ import { SecurityInterceptor } from './security/security.interceptor';
 
 
 const appRoutes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'anomaly', component: AnomalyComponent },
-  { path: 'choosebank', component: ChooseBankComponent }
+  { path: '', component: ChooseBankComponent },
+  { path: 'dashboard', component: DashboardComponent }
 
 ];
 
@@ -28,7 +25,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    AnomalyComponent,
     NavbarComponent,
     DashboardComponent,
     ChooseBankComponent
