@@ -14,13 +14,7 @@ export class DashboardService {
   constructor(private http: HttpClient) { }
 
   getBanks(): Observable<Bank[]> {
-<<<<<<< HEAD
     return this.http.get<Bank[]>("https://htf.zinderlabs.com/banks");
-=======
-    return this.http.get<Bank[]>("https://htf.zinderlabs.com/banks", {
-      headers: new HttpHeaders().set("Authorization","8ccf6ebac6ea70f7be596b481db11255")
-      });
->>>>>>> choosebank
   }
 
   getBankTransacitons(bankName: string): Observable<Transaction[]> {

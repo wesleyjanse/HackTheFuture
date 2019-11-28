@@ -6,13 +6,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DashboardService } from 'src/app/services/dashboard.service';
-<<<<<<< HEAD
 import { ActivatedRoute } from '@angular/router';
-=======
 import { Transaction } from 'src/app/models/transaction.model';
 import { BankAccount } from 'src/app/models/bankaccount.model';
 import { Accounts } from 'src/app/models/accounts.model';
->>>>>>> creating table
 export interface PeriodicElement {
   name: string;
   position: number;

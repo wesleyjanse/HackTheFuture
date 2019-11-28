@@ -12,12 +12,9 @@ import { MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule } from 
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChooseBankComponent } from './components/choose-bank/choose-bank.component';
 import { HttpClientModule } from '@angular/common/http';
-<<<<<<< HEAD
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SecurityInterceptor } from './security/security.interceptor';
 
-=======
->>>>>>> choosebank
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
@@ -45,10 +42,7 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatIconModule,
     BrowserAnimationsModule,
-<<<<<<< HEAD
-=======
     MatCardModule,
->>>>>>> choosebank
     HttpClientModule
   ],
   exports: [
