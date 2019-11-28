@@ -6,14 +6,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DashboardService } from 'src/app/services/dashboard.service';
+import { ActivatedRoute } from '@angular/router';
 export interface PeriodicElement {
   name: string;
   position: number;
   weight: number;
   symbol: string;
 }
-
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -33,7 +32,8 @@ export class DashboardComponent implements OnInit {
     { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
   ];
 
-  constructor(private _NavbarService: NavbarService, private fb: FormBuilder, private _dashBoardService: DashboardService) {
+  public apiPath:string;
+  constructor(private _NavbarService: NavbarService, private fb: FormBuilder, private _dashBoardService: DashboardService,public route:ActivatedRoute) {
     this._NavbarService.show();
     this.dataSource.data = this.options;
     this.dataSource.filterPredicate = this.createFilter();
@@ -57,7 +57,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
-
+    this.apiPath = this.route.snapshot.queryParamMap.get('apiPath');
+    console.log(this.apiPath)
     this.filter.valueChanges
       .subscribe(
         name => {

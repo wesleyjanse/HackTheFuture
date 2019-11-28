@@ -8,18 +8,22 @@ import { HomeComponent } from './components/home/home.component';
 import { AnomalyComponent } from './components/anomaly/anomaly.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule, Routes } from '@angular/router';
-import { MatToolbarModule, MatButtonModule, MatIconModule } from '@angular/material';
+import { MatToolbarModule, MatButtonModule, MatIconModule, MatCardModule } from '@angular/material';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChooseBankComponent } from './components/choose-bank/choose-bank.component';
 import { HttpClientModule } from '@angular/common/http';
+<<<<<<< HEAD
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SecurityInterceptor } from './security/security.interceptor';
 
+=======
+>>>>>>> choosebank
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'anomaly', component: AnomalyComponent }
+  { path: 'anomaly', component: AnomalyComponent },
+  { path: 'choosebank', component: ChooseBankComponent }
 
 ];
 
@@ -41,6 +45,10 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatIconModule,
     BrowserAnimationsModule,
+<<<<<<< HEAD
+=======
+    MatCardModule,
+>>>>>>> choosebank
     HttpClientModule
   ],
   exports: [
