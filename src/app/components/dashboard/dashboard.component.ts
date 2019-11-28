@@ -65,8 +65,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.apiPath = this.route.snapshot.queryParamMap.get('apiPath');
-    this.filterRecipient.valueChanges
-    this.apiPath = this.route.snapshot.queryParamMap.get('apiPath');
+    this.filterRecipient.valueChanges;
     this._dashBoardService.getBankAccounts(this.apiPath).subscribe(res => {
       this.optionsAccounts = res;
       this.dataSourceAccounts.data = this.optionsAccounts.result;
