@@ -11,6 +11,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatToolbarModule, MatButtonModule, MatIconModule } from '@angular/material';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ChooseBankComponent } from './components/choose-bank/choose-bank.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SecurityInterceptor } from './security/security.interceptor';
+
 
 const appRoutes: Routes = [
   { path: '', component: DashboardComponent },
@@ -36,14 +40,19 @@ const appRoutes: Routes = [
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   exports: [
     MaterialModule,
     FormSharedModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: SecurityInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
