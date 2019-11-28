@@ -83,6 +83,7 @@ export class DashboardComponent implements OnInit {
     this._dashBoardService.getBankTransacitons(this.apiPath).subscribe(res => {
       this.options = res;
       this.dataSource.data = this.options.result;
+      
       console.log(this.options);
     })
 

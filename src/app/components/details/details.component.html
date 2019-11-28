@@ -1,16 +1,18 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h3 style="text-align: center;">{{person.firstName}} {{person.lastName}}</h3>
-            <h5 style="text-align: center;">IBAN: {{person.account.iban}}</h5>
-            <p style="text-align: center;">Average transaction amount: {{averageAmount}}</p>
+            <h3 style="text-align: center;">{{person.firstName}} {{person.lastName}}{{person.name}}</h3>
+            <h5 style="text-align: center;">AccountNr: {{iban}}{{cardAccount}}</h5>
+            <p style="text-align: center;">Average transaction amount: ${{averageAmount}}</p>
+            <p style="text-align: center;">Total received: ${{totalReceived}}</p>
+            <p style="text-align: center;">Total send: ${{totalSend}}</p>
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-12">
 
-            <table class="w-100">
+            <table class="w-100" *ngIf="apiPath != '/swissnationalbank/'">
                 <tr>
                     <th>Sender</th>
                     <th>Recipient</th>
@@ -19,7 +21,7 @@
                 <tr *ngFor="let transaction of person.account.transactions">
                     <td>{{transaction.sender}}</td>
                     <td>{{transaction.recipient}}</td>
-                    <td [ngStyle]="{'background-color':transaction.amount > averageAmount *2 ? 'red' : 'white' }">{{transaction.amount}}</td>
+                    <td [ngStyle]="{'background-color':transaction.amount > averageAmount *2 ? 'red' : 'white' }">${{transaction.amount}}</td>
                 </tr>
             </table>
         </div>
