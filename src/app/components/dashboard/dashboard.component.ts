@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { DashboardService } from 'src/app/services/dashboard.service';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -32,10 +33,14 @@ export class DashboardComponent implements OnInit {
     { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
   ];
 
-  constructor(private _NavbarService: NavbarService, private fb: FormBuilder) {
+  constructor(private _NavbarService: NavbarService, private fb: FormBuilder, private _dashBoardService: DashboardService) {
     this._NavbarService.show();
     this.dataSource.data = this.options;
     this.dataSource.filterPredicate = this.createFilter();
+
+    this._dashBoardService.getBankAccounts("caymannationalbank").subscribe(res => {
+      console.log(res);
+    })
    }
 
   filter = new FormControl('');
