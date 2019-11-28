@@ -67,14 +67,13 @@ export class DashboardComponent implements OnInit {
 
     this._dashBoardService.getBankAccounts(this.apiPath).subscribe(res => {
       this.optionsAccounts = res;
-      this.dataSourceAccounts.data= this.optionsAccounts.result;
+      this.dataSourceAccounts.data = this.optionsAccounts.result;
       console.log(this.optionsAccounts);
-
     })
   }
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  
+  @ViewChild('transactionsPaginator', { read: MatPaginator, static: true }) transactionsPaginator: MatPaginator;
+  @ViewChild('accountPaginator', { read: MatPaginator, static: true }) accountPaginator: MatPaginator;
   ngOnInit() {
     
     this.dataSource.sort = this.sort;
@@ -109,8 +108,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.paginator = this.transactionsPaginator;
     this.dataSource.sort = this.sort;
+    this.dataSourceAccounts.paginator = this.accountPaginator;
+    this.dataSourceAccounts.sort = this.sort;
   }
 
   createFilter(): (data: any, filter: string) => boolean {
